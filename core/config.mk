@@ -315,7 +315,6 @@ include $(BUILD_SYSTEM)/envsetup.mk
 # See envsetup.mk for a description of SCAN_EXCLUDE_DIRS
 FIND_LEAVES_EXCLUDES := $(addprefix --prune=, $(SCAN_EXCLUDE_DIRS) .repo .git)
 
--include vendor/extra/BoardConfigExtra.mk
 ifneq ($(LIQUID_BUILD),)
 include vendor/liquid/config/BoardConfigLiquid.mk
 endif
@@ -1170,11 +1169,19 @@ dont_bother_goals := out \
 # consistency with those defined in BoardConfig.mk files.
 include $(BUILD_SYSTEM)/android_soong_config_vars.mk
 
+<<<<<<< HEAD
 ifneq ($(LIQUID_BUILD),)
 ifneq ($(wildcard device/liquid/sepolicy/common/sepolicy.mk),)
 ## We need to be sure the global selinux policies are included
 ## last, to avoid accidental resetting by device configs
 $(eval include device/liquid/sepolicy/common/sepolicy.mk)
+=======
+ifneq ($(CUSTOM_BUILD),)
+ifneq ($(wildcard device/custom/sepolicy/common/sepolicy.mk),)
+## We need to be sure the global selinux policies are included
+## last, to avoid accidental resetting by device configs
+$(eval include device/custom/sepolicy/common/sepolicy.mk)
+>>>>>>> 876707fcd (build: Add custom build support)
 endif
 endif
 
