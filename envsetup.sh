@@ -749,6 +749,8 @@ function lunch()
     set_stuff_for_environment
     [[ -n "${ANDROID_QUIET_BUILD:-}" ]] || printconfig
     destroy_build_var_cache
+
+    liquid_prebuilts
 }
 
 unset COMMON_LUNCH_CHOICES_CACHE
@@ -1910,4 +1912,11 @@ export ANDROID_BUILD_TOP=$(gettop)
 function repopick() {
     T=$(gettop)
     $T/vendor/liquid/build/tools/repopick.py $@
+}
+
+function liquid_prebuilts() {
+    if [ -z ${LIQUID_PREBUILTS} ]; then
+        bash $ANDROID_BUILD_TOP/packages/apps/LiquidPrebuilts/LiquidPrebuilts.sh
+        export LIQUID_PREBUILTS=1
+    fi
 }
